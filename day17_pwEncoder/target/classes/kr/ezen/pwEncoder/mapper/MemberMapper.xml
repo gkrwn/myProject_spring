@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.ezen.pwEncoder.mapper.MemberMapper">
+<!--   <select id="memberList" resultType="model.MemberDTO"> -->
+  <select id="memberList" resultType="MemberDTO">
+    select * from member
+  </select>
+  
+  <insert id="memberInsert" parameterType="memberDTO">
+  	INSERT INTO member(id, pw, name, age, email, tel) 
+  	VALUES(#{id},#{pw},#{name},#{age},#{email},#{tel})
+  </insert>  
+ 
+  <select id="memberInfo" parameterType="Integer" resultType="memberDTO">
+  	SELECT * FROM member WHERE no = #{no}
+  </select>
+  
+  <delete id="deleteMember" parameterType="Integer">
+  	DELETE FROM member WHERE no = #{no}
+  </delete>
+  
+  <update id="memberUpdate">
+  	UPDATE member 
+  	SET age=#{age}, email=#{email}, tel=#{tel} WHERE no=#{no}
+  </update>
+  
+  <select id="idCheck" resultType="memberDTO">
+  	SELECT * FROM member WHERE id = #{uid}
+  </select>
+  
+  <select id="memberLogin" resultType="memberDTO">
+  	SELECT id, pw, name FROM member WHERE id = #{id}
+  </select>
+  
+  <!-- 오라클 nvlI(a, 0): a가 null일때 0으로 대체 
+  	nvl()와 같은 ifnull(a, 0) 사용
+  -->
+  <select id="findId" resultType="String">
+  	<!-- SELECT IFNULL(id,0) FROM member 
+  	WHERE name = #{name} AND tel = #{tel} -->
+  	SELECT id FROM member 
+  	WHERE name = #{name} AND tel = #{tel}
+  </select>
+  
+  <update id="findPw">
+  	UPDATE member SET pw=#{param3}
+  	WHERE id=#{param1} AND email=#{param2} 
+  </update>
+  
+  <update id="updatePw">
+  	UPDATE member SET pw=#{pw} 
+  	WHERE id = #{id}
+  </update>
+  
+</mapper>

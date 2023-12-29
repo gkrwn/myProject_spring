@@ -1,0 +1,25 @@
+## 이메일 관련 Protocol
+- SMTP, POP/IMAP
+
+## Email 인증 처리 순서(Google 메일서버)
+1. google 로그인 보안설정
+- https://myaccount.google.com/
+- 2단계 인증 "사용" 설정
+- 앱비밀번호 설정(16자리)
+
+2. API 추가 pom.xml(메이븐)
+- javax.mail(mvn repository : mail 검색)
+- spring context support(스프링 버전에 맞게)
+
+3. 이메일 인증 빈(JavaMailSender) 등록(servlet-context.xml)
+- google(gmail) SMTP 사용 설정
+  (구글이메일, 앱비밀번호) 
+
+4. ajax 사용 및 컨트롤러에서 JavaMailSender 주입 받는다
+- MimeMessage 객체 생성 및 셋팅 
+- UUID를 이용한 인증코드를 수신메일에 발송 
+
+
+
+
+ 
